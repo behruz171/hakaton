@@ -107,15 +107,22 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": env.str("DB_ENGINE"),
+#         "NAME": env.str("DB_NAME"),
+#         "USER": env.str("DB_USER"),
+#         "PASSWORD": env.get_value("DB_PASSWORD"),
+#         "HOST": env.str("DB_HOST"),
+#         "PORT": env.str("DB_PORT"),
+#         "ATOMIC_REQUESTS": True,
+#     }
+# }
+
 DATABASES = {
-    "default": {
-        "ENGINE": env.str("DB_ENGINE"),
-        "NAME": env.str("DB_NAME"),
-        "USER": env.str("DB_USER"),
-        "PASSWORD": env.get_value("DB_PASSWORD"),
-        "HOST": env.str("DB_HOST"),
-        "PORT": env.str("DB_PORT"),
-        "ATOMIC_REQUESTS": True,
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -167,14 +174,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": f"{env.str('REDIS_URL', 'redis://localhost:6379/0')}",
+        "LOCATION": 'redis://localhost:6379/0',
         "KEY_PREFIX": "boilerplate",  # todo: you must change this with your project name or something else
     }
 }
 
 # CELERY CONFIGURATION
-CELERY_BROKER_URL = env.str("CELERY_BROKER_URL", "redis://localhost:6379")
-CELERY_RESULT_BACKEND = env.str("CELERY_BROKER_URL", "redis://localhost:6379")
+CELERY_BROKER_URL = "redis://localhost:6379"
+CELERY_RESULT_BACKEND = "redis://localhost:6379"
 
 CELERY_TIMEZONE = "Asia/Tashkent"
 
@@ -183,7 +190,7 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 
 
 
-AUTH_USER_MODEL = 'users.User'
+# AUTH_USER_MODEL = 'users.User'
 
 from datetime import timedelta
 
